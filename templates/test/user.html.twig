@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{{ title }}
+
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<p>Salut</p>
+
+<h2> Liste de tous les utilisateurs par email : </h2>
+
+{% for user in allUsers%}
+
+<h4> {{user.email}} (id : {{user.id}}) </h4>
+
+<p> {{ (user.roles)|join }} </p>
+
+{% endfor %}
+
+<h2> Utilisateur id = 1 :</h2>
+
+<h4> {{ user1.email }} (id : {{user1.id}}) ({{ (user1.roles)|join }}) </h4>
+
+<h2> Utilisateur email = '{{ userEmail.email }}' :</h2>
+
+<h4> {{ userEmail.email }} (id : {{userEmail.id}}) ({{ (userEmail.roles)|join }}) </h4>
+
+<h2> Liste de tous les utilisateurs roles = 'ROLE_USER' :</h2>
+
+{% for userR in userRole%}
+
+<h4> {{ userR.email }} (id : {{userR.id}}) ({{ (userR.roles)|join }}) </h4>
+
+{% endfor %}
+
+<h2> Liste de tous les utilisateurs enabled = false :</h2>
+
+{% for userD in userDisabled%}
+
+<h4> {{ userD.email }} (id : {{userD.id}}) ({{ (userD.roles)|join }}) {{ userD.enabled }} </h4>
+
+{% endfor %}
+
+{% endblock %}

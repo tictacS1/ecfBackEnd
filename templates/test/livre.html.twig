@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{{ title }}
+
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<p>Salut</p>
+
+<h2> Livres rangés par Titre :</h2>
+
+{% for livre in livreAll%}
+
+<h4> {{ livre.titre }} , {{ livre.aneeEdition }} </h4>
+
+<p> Nombre de pages: {{ livre.nombrePages }} </p>
+
+<p> Code ISBN: {{ livre.codeIsbn }} </p>
+
+{% endfor %}
+
+<h2> Livre id = 1 :</h2>
+
+<h4> {{ livre1.titre }} , {{ livre1.aneeEdition }} </h4>
+
+<p> Nombre de pages: {{ livre1.nombrePages }} </p>
+
+<p> Code ISBN: {{ livre1.codeIsbn }} </p>
+
+<h2> Livre qui contiennent le mot-clé 'a' :</h2>
+
+{% for livre in livreM%}
+
+<h4> {{ livre.titre }} , {{ livre.aneeEdition }} </h4>
+
+<p> Nombre de pages: {{ livre.nombrePages }} </p>
+
+<p> Code ISBN: {{ livre.codeIsbn }} </p>
+
+{% endfor %}
+
+<h2> Livre dont l'auteur = 82 :</h2>
+
+{% for livre in livreId%}
+
+<h4> {{ livre.titre }} , {{ livre.aneeEdition }} </h4>
+
+<p> Nombre de pages: {{ livre.nombrePages }} </p>
+
+<p> Code ISBN: {{ livre.codeIsbn }} </p>
+
+{% endfor %}
+
+<h2> Livre dont le genre est "roman" :</h2>
+
+{% for livre in livreR%}
+
+<h4> {{ livre.titre }} , {{ livre.aneeEdition }} </h4>
+
+<p> Nombre de pages: {{ livre.nombrePages }} </p>
+
+<p> Code ISBN: {{ livre.codeIsbn }} </p>
+
+{% endfor %}
+
+<h2> Livre crée :</h2>
+
+<h4> {{ newLivreVerif.titre }} , {{ newLivreVerif.aneeEdition }} </h4>
+
+<p> Nombre de pages: {{ newLivreVerif.nombrePages }} </p>
+
+<p> Code ISBN: {{ newLivreVerif.codeIsbn }} </p>
+
+{% endblock %}

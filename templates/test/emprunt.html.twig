@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{{ title }}
+
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<p>Salut</p>
+
+<h2>10 Derniers Emprunts:</h2>
+
+{% for emp in emprunt_n%}
+
+<h4> (id de l'emprunteur : {{emp.emprunteur.id}}) </h4>
+
+    <p>Date D'emprunt : {{ emp.dateEmprunt|date('Y-m-d H:i:s') }} , Date de retour : {{ emp.dateRetour|date('Y-m-d H:i:s') }} </p>
+
+<p> (id du livre : {{emp.livre.id}}) </p>
+
+{% endfor %}
+
+<h2>Emprunts id = 5:</h2>
+
+{% for emp in emprunt2%}
+
+<h4> (id de l'emprunteur : {{emp.emprunteur.id}}) </h4>
+
+<p>Date D'emprunt : {{ emp.dateEmprunt|date('Y-m-d H:i:s') }} , Date de retour : {{ emp.dateRetour|date('Y-m-d H:i:s') }} </p>
+
+<p> (id d'emprent : {{emp.id}}) </p>
+
+<p> (id du livre : {{emp.livre.id}}) </p>
+
+{% endfor %}
+
+<h2>Livre id = 14:</h2>
+
+{% for emp in livre%}
+
+<h4> (id de l'emprunteur : {{emp.emprunteur.id}}) </h4>
+
+<p>Date D'emprunt : {{ emp.dateEmprunt|date('Y-m-d H:i:s') }} , Date de retour : {{ emp.dateRetour|date('Y-m-d H:i:s') }} </p>
+
+<p> (id d'emprent : {{emp.id}}) </p>
+
+<p> (id du livre : {{emp.livre.id}}) </p>
+
+{% endfor %}
+
+<h2>10 Derniers Emprunts Rendus:</h2>
+
+{% for emp in emp_rendu%}
+
+<h4> (id de l'emprunteur : {{emp.emprunteur.id}}) </h4>
+
+    <p>Date D'emprunt : {{ emp.dateEmprunt|date('Y-m-d H:i:s') }} , Date de retour : {{ emp.dateRetour|date('Y-m-d H:i:s') }} </p>
+
+<p> (id du livre : {{emp.livre.id}}) </p>
+
+{% endfor %}
+
+<h2>Emprunts Null:</h2>
+
+{% for emp in emp_null%}
+
+<h4> (id de l'emprunteur : {{emp.emprunteur.id}}) </h4>
+
+    <p>Date D'emprunt : {{ emp.dateEmprunt|date('Y-m-d H:i:s') }} , Date de retour : {{ emp.dateRetour }} </p>
+
+<p> (id du livre : {{emp.livre.id}}) </p>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{{ title }}
+
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+<p>Salut</p>
+
+<h2> Emprunteurs rangés par Nom , Prénom :</h2>
+
+{% for emp in emprunteurs%}
+
+<h4> {{ emp.nom }} , {{ emp.prenom }} </h4>
+
+<p> Téléphone: {{ emp.tel }} </p>
+
+{% endfor %}
+
+<h2> Emprunteur id = 3 :</h2>
+
+<h4> {{ emprunteur1.nom }} , {{ emprunteur1.prenom }} </h4>
+
+<p> Téléphone: {{ emprunteur1.tel }} (id : {{emprunteur1.id}})  </p>
+
+<h2> User id = 3 :</h2>
+
+{% for user in emprunteur_id%}
+
+<h4> {{ user.nom }} , {{ user.prenom }} </h4>
+
+<p> Téléphone: {{ user.tel }} (id : {{user.id}})  </p>
+
+{% endfor %}
+
+<h2> Emprunteurs avec nom ou prenom qui contient "an" :</h2>
+
+{% for emp in emprunteurs_field%}
+
+<h4> {{ emp.nom }} , {{ emp.prenom }} </h4>
+
+<p> Téléphone: {{ emp.tel }} (id : {{emp.id}})  </p>
+
+{% endfor %}
+
+<h2> Emprunteurs avec numero qui contient "01" :</h2>
+
+{% for emp in emprunteur_num%}
+
+<h4> {{ emp.nom }} , {{ emp.prenom }} </h4>
+
+<p> Téléphone: {{ emp.tel }} (id : {{emp.id}})  </p>
+
+{% endfor %}
+
+<h2> Emprunteurs avec une date d'emprunt antérieur au "2023-09-07 00:00:00" :</h2>
+
+{% for emp in emprunteur_date%}
+
+<h4> {{ emp.nom }} , {{ emp.prenom }} </h4>
+
+<p> Téléphone: {{ emp.tel }} (id : {{emp.id}})  </p>
+
+{% endfor %}
+
+{% endblock %}
