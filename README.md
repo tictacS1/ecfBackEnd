@@ -15,6 +15,12 @@ Ce repo contient des données pour un projet de Back-end a destination d'un Libr
 
 ## Installation
 
+#### Dépendences de Composer :
+
+`composer require`
+
+`composer install`
+
 #### Vérifier si les prérequis sont la :
 
 ```
@@ -123,77 +129,11 @@ composer require knplabs/knp-paginator-bundle
 
 Lancez  la commande ci-dessous afin de charger le schéma de base de données et les Fixtures.
 
-Pensez à vérifier que vous êtes a la racine de votre dossier de projet symfony !
-
-```bash
-bin/dofilo.sh
-```
-
-## Fixtures
-
-Dans le fichier `ECFback1/DataFixtures/TestFixtures.php/` :
-
-Remplacez la fonction ci-dessous par les Fixtures Statiques ou Dynamiques, les fixtures dynamiques sont activées par défaut.
-
-*Il faut choisir entre Statique et Dynamique Pas les deux !*
-
-Configuration de Tests Statiques :
-
-```php
-    public function load(ObjectManager $manager): void
-    {
-        $this->manager = $manager;
-
-        $this->loadUsersStatic();
-        //$this->loadUsersDyn();
-
-        $this->loadEmprunteursStatic();
-        //$this->loadEmprunteursDyn();
-
-        $this->loadAuteursStatic();
-        //$this->loadAuteursDyn();
-
-        $this->loadGenres();
-
-        $this->loadLivresStatic();
-        //$this->loadLivresDyn();
-
-        $this->loadEmpruntsStatic();
-        //$this->loadEmpruntsDyn();
-    }
-```
-
-Configuration de Tests Dynamiques :
-
-```php
-    public function load(ObjectManager $manager): void
-    {
-        $this->manager = $manager;
-
-        //$this->loadUsersStatic();
-        $this->loadUsersDyn();
-
-        //$this->loadEmprunteursStatic();
-        $this->loadEmprunteursDyn();
-
-        //$this->loadAuteursStatic();
-        $this->loadAuteursDyn();
-
-        $this->loadGenres();
-
-        //$this->loadLivresStatic();
-        $this->loadLivresDyn();
-
-        //$this->loadEmpruntsStatic();
-        $this->loadEmpruntsDyn();
-    }
-```
-
-Pour lancer une configuration modifiez votre instance du fichier `Symfony/DataFixtures/TestFixtures.php/`
-
 *Pensez à vérifier que vous êtes a la racine de votre dossier de projet symfony !*
 
 Puis lancez `bin/dofilo.sh` dans la console
+
+` bin/dofilo.sh `
 
 ## Vérification des Fixtures
 
@@ -234,6 +174,8 @@ Pour vérifier les requêtes naviguez dans ces 4 URLs :
     -`https://127.0.0.1:8000/test/emprunt`
 
 Pour vérifier certaines données rendez vous sur PhpMyAdmin et entrez le nom d'utilisateur et mot de passe renseigné dans `.env.local`
+
+*PS: La requête de supression d'un livre ne marche que si le livre n'est pas emprunté*
 
 ## Mentions légales
 
