@@ -30,7 +30,7 @@ class TestController extends AbstractController
         $user1 = $repository->find(1);
 
         $userEmail = $repository->findOneBy([
-            'email' => 'julien32@noos.fr',
+            'email' => 'admin@gmail.com',
         ]);
 
         $userRole = $repository->findAllByRole();
@@ -94,7 +94,7 @@ class TestController extends AbstractController
         $em->flush();
 
         // Requete de supression :
-        $livreSuppr = $repositoryLivre->find(177);
+        $livreSuppr = $repositoryLivre->find(176);
 
         if ($livreSuppr) {
             $em->remove($livreSuppr);
