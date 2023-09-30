@@ -17,9 +17,11 @@ Ce repo contient des données pour un projet de Back-end a destination d'un Libr
 
 #### Dépendences de Composer :
 
-`composer require`
+`composer require --dev`
 
-`composer install`
+Voir les packages :
+
+`composer recipes`
 
 #### Vérifier si les prérequis sont la :
 
@@ -113,12 +115,12 @@ composer require knplabs/knp-paginator-bundle
 
 ---
 
-(Optionel : Changer la configuration de la langue dans le fichier `config/packages/translation.yaml`) :
+(Optionel : Changer la configuration de la langue dans le fichier ( Français de base )`config/packages/translation.yaml`) :
 
 ```
   framework:
--     default_locale: en
-+     default_locale: fr
+-     default_locale: fr
++     default_locale: en
       translator:
           default_path: '%kernel.project_dir%/translations'
           fallbacks:
@@ -133,7 +135,7 @@ Lancez  la commande ci-dessous afin de charger le schéma de base de données et
 
 Puis lancez `bin/dofilo.sh` dans la console
 
-` bin/dofilo.sh `
+`bin/dofilo.sh`
 
 ## Vérification des Fixtures
 
