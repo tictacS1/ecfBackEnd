@@ -1,41 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livre index{% endblock %}
+{% block title %}Livre index
+{% endblock %}
 
 {% block body %}
-    <h1>Livre index</h1>
+	<h1>Livre index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Anee_edition</th>
-                <th>Nombre_pages</th>
-                <th>Code_isbn</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for livre in livres %}
-            <tr>
-                <td>{{ livre.id }}</td>
-                <td>{{ livre.titre }}</td>
-                <td>{{ livre.aneeEdition }}</td>
-                <td>{{ livre.nombrePages }}</td>
-                <td>{{ livre.codeIsbn }}</td>
-                <td>
-                    <a href="{{ path('app_home_show', {'id': livre.id}) }}">show</a>
-                    <a href="{{ path('app_home_edit', {'id': livre.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titre</th>
+				<th>Anee_edition</th>
+				<th>Nombre_pages</th>
+				<th>Code_isbn</th>
+				<th>Disponible</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for livre in livres %}
+				<tr>
+					<td>{{ livre.id }}</td>
+					<td>
+						<a href="{{ path('app_home_show', {'id': livre.id}) }}">{{ livre.titre }}</a>
+					</td>
+					<td>{{ livre.aneeEdition }}</td>
+					<td>{{ livre.nombrePages }}</td>
+					<td>{{ livre.codeIsbn }}</td>
+					<td>
+			            {% if livre.isDisponible(livre) == true %}
+					        <td>Non Disponible</td>
+					    {% else %}
+						    <td>Disponible</td>
+					    {% endif %}
+					</td>
+					<td>
+						<a href="{{ path('app_home_show', {'id': livre.id}) }}">show</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_home_new') }}">Create new</a>
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Emprunteur;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -30,6 +31,9 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setEnabled(true);
+            $emprunteur = $user->getEmprunteur();
+            $emprunteur->setUser($user);
             $entityManager->persist($user);
             $entityManager->flush();
 

@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Emprunt;
+use App\Form\EmpruntType;
 use App\Repository\LivreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 #[ORM\Entity(repositoryClass: LivreRepository::class)]
 class Livre
@@ -116,6 +120,14 @@ class Livre
         return $this->emprunts;
     }
 
+    /**
+     * @return Emprunt
+     */
+    public function getEmprunt(): Collection
+    {
+        return $this->emprunts;
+    }
+
     public function addEmprunt(Emprunt $emprunt): static
     {
         if (!$this->emprunts->contains($emprunt)) {
@@ -134,7 +146,6 @@ class Livre
                 $emprunt->setLivre(null);
             }
         }
-
         return $this;
     }
 
@@ -168,5 +179,19 @@ class Livre
     public function __toString()
     {
         return $this->getId();
+    }
+
+    /**
+     * @return Bollean
+     */
+    public function isDisponible(Livre $livre): bool
+    {
+        $emp = $livre->getEmprunt();
+
+        if ($emp->$this->getDateRetour() == null) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

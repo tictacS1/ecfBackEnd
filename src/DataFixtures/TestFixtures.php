@@ -38,9 +38,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
         $this->loadUsers();
 
-        $this->loadEmprunteurs();
-
-        $this->loadUsersEmprunteur();
+        //$this->loadEmprunteurs();
 
         $this->loadAuteurs();
 
@@ -53,27 +51,33 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
     public function loadUsers(): void
     {
-        $repository = $this->manager->getRepository(Emprunteur::class);
-        $emprunteurs = $repository->findAll();
-
         $datas = [
             [
                 'email' => 'test1@gmail.com',
                 'roles' => ['ROLE_USER'],
                 'password' => '123',
                 'enabled' => true,
+                'nom' => 'Edward',
+                'prenom' => 'Thomas',
+                'tel' => '0709864576',
             ],
             [
                 'email' => 'test2@gmail.com',
                 'roles' => ['ROLE_USER'],
                 'password' => '123',
                 'enabled' => true,
+                'nom' => 'Colonel',
+                'prenom' => 'Sanders',
+                'tel' => '0673223093',
             ],
             [
                 'email' => 'test3@gmail.com',
                 'roles' => ['ROLE_USER'],
                 'password' => '123',
                 'enabled' => false,
+                'nom' => 'Lucas',
+                'prenom' => 'Padidé',
+                'tel' => '0763489244',
             ],
         ];
 
@@ -86,8 +90,15 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $user->setEnabled($data['enabled']);
 
             $this->manager->persist($user);
-        }
 
+            $emprunteur = new Emprunteur();
+            $emprunteur->setNom($data['nom']);
+            $emprunteur->setPrenom($data['prenom']);
+            $emprunteur->setTel($data['tel']);
+            $emprunteur->setUser($user);
+
+            $this->manager->persist($emprunteur);
+        }
         for ($i = 0; $i < 100; $i++) {
             $user = new User();
             $user->setEmail($this->faker->unique()->email());
@@ -99,86 +110,98 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
             $this->manager->persist($user);
         }
+
+        $this->manager->flush();
+
+        $repositoryUser = $this->manager->getRepository(User::class);
+        $repositoryEmprunteur = $this->manager->getRepository(Emprunteur::class);
+
+        $emprunteur_1 = $repositoryEmprunteur->find(1);
+        $emprunteur_2 = $repositoryEmprunteur->find(2);
+        $emprunteur_3 = $repositoryEmprunteur->find(3);
+
+        $user_2 = $repositoryUser->find(2);
+        $user_3 = $repositoryUser->find(3);
+        $user_4 = $repositoryUser->find(4);
+
+        $user_2->setEmprunteur($emprunteur_1);
+        $user_3->setEmprunteur($emprunteur_2);
+        $user_4->setEmprunteur($emprunteur_3);
+
+        $this->manager->persist($user_2);
+        $this->manager->persist($user_3);
+        $this->manager->persist($user_4);
+
+        $users = $repositoryUser->findAll();
+        array_shift($users);
+        array_shift($users);
+        array_shift($users);
+        array_shift($users);
+
+        foreach ($users as $user) {
+            $emprunteur = new Emprunteur();
+            $emprunteur->setNom($this->faker->lastName());
+            $emprunteur->setPrenom($this->faker->firstname());
+            $emprunteur->setTel($this->faker->phoneNumber());
+            $emprunteur->setUser($user);
+            $this->manager->persist($emprunteur);
+            $user->setEmprunteur($emprunteur);
+            $this->manager->persist($user);
+        }
         $this->manager->flush();
     }
 
     public function loadEmprunteurs(): void
     {
-        $repository = $this->manager->getRepository(User::class);
-        $users = $repository->findAll();
 
-        $user_1 = $repository->find(2);
-        $user_2 = $repository->find(3);
-        $user_3 = $repository->find(4);
 
-        $datas = [
-            [
-                'nom' => 'Edward',
-                'prenom' => 'Thomas',
-                'tel' => '0709864576',
-                'user_id' => $user_1,
-            ],
-            [
-                'nom' => 'Colonel',
-                'prenom' => 'Sanders',
-                'tel' => '0673223093',
-                'user_id' => $user_2,
-            ],
-            [
-                'nom' => 'Lucas',
-                'prenom' => 'Padidé',
-                'tel' => '0763489244',
-                'user_id' => $user_3,
-            ],
-        ];
+        // $user_2 = $repositoryUser->find(2);
+        // $user_3 = $repositoryUser->find(3);
+        // $user_4 = $repositoryUser->find(4);
 
-        foreach ($datas as $data) {
-            $emprunteur = new Emprunteur();
-            $emprunteur->setNom($data['nom']);
-            $emprunteur->setPrenom($data['prenom']);
-            $emprunteur->setTel($data['tel']);
-            $emprunteur->setUser($data['user_id']);
+        // $datas = [
+        //     [
+        //         'nom' => 'Edward',
+        //         'prenom' => 'Thomas',
+        //         'tel' => '0709864576',
+        //         'user' => $user_2,
+        //     ],
+        //     [
+        //         'nom' => 'Colonel',
+        //         'prenom' => 'Sanders',
+        //         'tel' => '0673223093',
+        //         'user' => $user_3,
+        //     ],
+        //     [
+        //         'nom' => 'Lucas',
+        //         'prenom' => 'Padidé',
+        //         'tel' => '0763489244',
+        //         'user' => $user_4,
+        //     ],
+        // ];
 
-            $this->manager->persist($emprunteur);
-        }
+        // foreach ($datas as $data) {
+        //     $emprunteur = new Emprunteur();
+        //     $emprunteur->setNom($data['nom']);
+        //     $emprunteur->setPrenom($data['prenom']);
+        //     $emprunteur->setTel($data['tel']);
+        //     $emprunteur->setUser($data['user']);
 
-        for ($i = 5; $i < 100; $i++) {
-            $emprunteur = new Emprunteur();
-            $emprunteur->setNom($this->faker->lastName());
-            $emprunteur->setPrenom($this->faker->firstname());
-            $emprunteur->setTel($this->faker->phoneNumber());
-            $emprunteur->setUser($repository->find($i));
-            $this->manager->persist($emprunteur);
-        }
-        $this->manager->flush();
-    }
+        //     $this->manager->persist($emprunteur);
+        // }
 
-    public function loadUsersEmprunteur(): void
-    {
-        $repository = $this->manager->getRepository(Emprunteur::class);
-        $repositoryUser = $this->manager->getRepository(User::class);
+        // $emprunteur_2 = $repositoryEmprunteur->find(2);
+        // $emprunteur_3 = $repositoryEmprunteur->find(3);
+        // $emprunteur_4 = $repositoryEmprunteur->find(4);
 
-        $users = $repositoryUser->findAll();
-        $user2 = $repositoryUser->find(2);
-        $user3 = $repositoryUser->find(3);
-        $user4 = $repositoryUser->find(4);
+        // $user_2->setEmprunteur($emprunteur_2);
+        // $user_3->setEmprunteur($emprunteur_3);
+        // $user_4->setEmprunteur($emprunteur_4);
 
-        $emprunteur_id_2 = $repository->find(2);
-        $emprunteur_id_3 = $repository->find(3);
-        $emprunteur_id_4 = $repository->find(4);
+        // array_shift($users);
+        // array_shift($users);
+        // array_shift($users);
 
-        $user2->setEmprunteur($emprunteur_id_2);
-        $this->manager->persist($user3);
-        $user3->setEmprunteur($emprunteur_id_3);
-        $this->manager->persist($user3);
-        $user4->setEmprunteur($emprunteur_id_4);
-        $this->manager->persist($user4);
-
-        for ($i = 5; $i < \count($users) ; $i++) {
-            $user = $repositoryUser->find($i);
-            $user->setEmprunteur($repository->find($i));
-            $this->manager->persist($user);
-        }
 
         $this->manager->flush();
     }
@@ -302,10 +325,10 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $auteur_3 = $repository->find(3);
         $auteur_4 = $repository->find(4);
 
-        $genre_1 = $repositoryGenre->find(1);
-        $genre_2 = $repositoryGenre->find(2);
-        $genre_3 = $repositoryGenre->find(3);
-        $genre_4 = $repositoryGenre->find(4);
+        $genres_1 = $repositoryGenre->find(1);
+        $genres_2 = $repositoryGenre->find(2);
+        $genres_3 = $repositoryGenre->find(3);
+        $genres_4 = $repositoryGenre->find(4);
 
         $datas = [
             [
@@ -313,32 +336,32 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
                 'annee_edition' => 2010,
                 'nombre_pages' => 100,
                 'code_isbn' => 9785786930024,
-                'auteur_id' => $auteur_1,
-                'genre_id' => $genre_1,
+                'auteur' => $auteur_1,
+                'genres' => [$genres_1],
             ],
             [
                 'titre' => 'Consectetur adipiscing elit',
                 'annee_edition' => 2011,
                 'nombre_pages' => 150,
                 'code_isbn' => 9783817260935,
-                'auteur_id' => $auteur_2,
-                'genre_id' => $genre_2,
+                'auteur' => $auteur_2,
+                'genres' => [$genres_2],
             ],
             [
                 'titre' => 'Mihi quidem Antiochum',
                 'annee_edition' => 2012,
                 'nombre_pages' => 200,
                 'code_isbn' => 9782020493727,
-                'auteur_id' => $auteur_3,
-                'genre_id' => $genre_3,
+                'auteur' => $auteur_3,
+                'genres' => [$genres_3],
             ],
             [
                 'titre' => 'Quem audis satis belle',
                 'annee_edition' => 2013,
                 'nombre_pages' => 250,
                 'code_isbn' => 9794059561353,
-                'auteur_id' => $auteur_4,
-                'genre_id' => $genre_4,
+                'auteur' => $auteur_4,
+                'genres' => [$genres_4],
             ],
         ];
 
@@ -348,9 +371,10 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $livre->setAneeEdition($data['annee_edition']);
             $livre->setNombrePages($data['nombre_pages']);
             $livre->setCodeIsbn($data['code_isbn']);
-            $livre->setAuteur($data['auteur_id']);
-            $livre->addGenre($data['genre_id']);
-
+            $livre->setAuteur($data['auteur']);
+            foreach ($data['genres'] as $genre) {
+                $livre->addGenre($genre);
+            }
             $this->manager->persist($livre);
         }
 
@@ -362,8 +386,10 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $livre->setCodeIsbn($this->faker->numberBetween(9000000000000, 9999999999999));
             $auteur_id = $this->faker->randomElement($auteurs);
             $livre->setAuteur($auteur_id);
-            $genre_id = $this->faker->randomElement($genres);
-            $livre->addGenre($genre_id);
+            $genre = $this->faker->randomElements($genres, 2);
+            foreach ($genre as $genre_livre) {
+                $livre->addGenre($genre_livre);
+            }
 
             $this->manager->persist($livre);
         }
