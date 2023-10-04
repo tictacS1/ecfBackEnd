@@ -16,7 +16,6 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
 
     public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->faker = FakerFactory::create('fr_FR');
         $this->hasher = $hasher;
     }
 

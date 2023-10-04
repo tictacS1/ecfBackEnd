@@ -37,9 +37,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $this->manager = $manager;
 
         $this->loadUsers();
-
-        //$this->loadEmprunteurs();
-
+        
         $this->loadAuteurs();
 
         $this->loadGenres();
@@ -148,61 +146,6 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $user->setEmprunteur($emprunteur);
             $this->manager->persist($user);
         }
-        $this->manager->flush();
-    }
-
-    public function loadEmprunteurs(): void
-    {
-
-
-        // $user_2 = $repositoryUser->find(2);
-        // $user_3 = $repositoryUser->find(3);
-        // $user_4 = $repositoryUser->find(4);
-
-        // $datas = [
-        //     [
-        //         'nom' => 'Edward',
-        //         'prenom' => 'Thomas',
-        //         'tel' => '0709864576',
-        //         'user' => $user_2,
-        //     ],
-        //     [
-        //         'nom' => 'Colonel',
-        //         'prenom' => 'Sanders',
-        //         'tel' => '0673223093',
-        //         'user' => $user_3,
-        //     ],
-        //     [
-        //         'nom' => 'Lucas',
-        //         'prenom' => 'Padidé',
-        //         'tel' => '0763489244',
-        //         'user' => $user_4,
-        //     ],
-        // ];
-
-        // foreach ($datas as $data) {
-        //     $emprunteur = new Emprunteur();
-        //     $emprunteur->setNom($data['nom']);
-        //     $emprunteur->setPrenom($data['prenom']);
-        //     $emprunteur->setTel($data['tel']);
-        //     $emprunteur->setUser($data['user']);
-
-        //     $this->manager->persist($emprunteur);
-        // }
-
-        // $emprunteur_2 = $repositoryEmprunteur->find(2);
-        // $emprunteur_3 = $repositoryEmprunteur->find(3);
-        // $emprunteur_4 = $repositoryEmprunteur->find(4);
-
-        // $user_2->setEmprunteur($emprunteur_2);
-        // $user_3->setEmprunteur($emprunteur_3);
-        // $user_4->setEmprunteur($emprunteur_4);
-
-        // array_shift($users);
-        // array_shift($users);
-        // array_shift($users);
-
-
         $this->manager->flush();
     }
 
