@@ -23,7 +23,6 @@ class EmpruntType extends AbstractType
                 'choice_label' => function (Emprunteur $emprunteurs) {
                     return "{$emprunteurs->getNom()} {$emprunteurs->getPrenom()}";
                 },
-                'expanded' => true,
                 'attr' => [
                     'class' => 'form_scrollable-checkboxes',
                 ],
@@ -38,7 +37,6 @@ class EmpruntType extends AbstractType
                 'choice_label' => function (Livre $livres) {
                     return "{$livres->getTitre()}";
                 },
-                'expanded' => true,
                 'attr' => [
                     'class' => 'form_scrollable-checkboxes',
                 ],

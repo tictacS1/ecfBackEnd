@@ -25,9 +25,8 @@ class LivreType extends AbstractType
                 'choice_label' => function (Auteur $auteurs) {
                     return "{$auteurs->getNom()} {$auteurs->getPrenom()}";
                 },
-                'expanded' => true,
                 'attr' => [
-                    'class' => 'form_scrollable-checkboxes',
+                    'class' => 'form_scrollable_checkboxes',
                 ],
                 'by_reference' => true,
                 'query_builder' => function (EntityRepository $er) {

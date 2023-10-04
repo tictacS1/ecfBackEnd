@@ -24,7 +24,6 @@ class GenreType extends AbstractType
                     return "{$livres->getTitre()} (id {$livres->getId()})";
                 },
                 'multiple' => true,
-                'expanded' => true,
                 'attr' => [
                     'class' => 'form_scrollable-checkboxes',
                 ],

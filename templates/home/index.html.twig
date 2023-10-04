@@ -28,13 +28,13 @@
 					<td>{{ livre.aneeEdition }}</td>
 					<td>{{ livre.nombrePages }}</td>
 					<td>{{ livre.codeIsbn }}</td>
-					<td>
-			            {% if livre.isDisponible(livre) == true %}
-					        <td>Non Disponible</td>
-					    {% else %}
-						    <td>Disponible</td>
-					    {% endif %}
-					</td>
+					{# {% for emprunt in livre.emprunts %}
+						{% if emprunt.dateRetour == null %}
+							<td>Non disponible</td>
+						{% else %}
+							<td>Disponible</td>
+						{% endif %}
+					{% endfor %} #}
 					<td>
 						<a href="{{ path('app_home_show', {'id': livre.id}) }}">show</a>
 					</td>

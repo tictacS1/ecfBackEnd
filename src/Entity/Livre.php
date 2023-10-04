@@ -175,23 +175,4 @@ class Livre
 
         return $this;
     }
-
-    public function __toString()
-    {
-        return $this->getId();
-    }
-
-    /**
-     * @return Bollean
-     */
-    public function isDisponible(Livre $livre): bool
-    {
-        $emp = $livre->getEmprunt();
-
-        if ($emp->$this->getDateRetour() == null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
