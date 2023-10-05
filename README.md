@@ -179,6 +179,30 @@ Pour vérifier certaines données rendez vous sur PhpMyAdmin et entrez le nom d'
 
 *PS: La requête de supression d'un livre ne marche que si le livre n'est pas emprunté*
 
+## Utilisation de l'application web
+
+A partir de la page d'accueil, cliquez sur **connexion** en haut a gauche.
+
+Puis connectez vous avec l'un de ces comptes :
+
+Compte admin :
+
+- email = admin@gmail.com
+- mot de passe = 123
+
+Compte user :
+
+- email = test1@gmail.com
+- mot de passe = 123
+
+#### Admin :
+
+Pour naviguer avec le compte admin tout se fait depuis le menu de navigation.
+
+#### User :
+
+Pour naviguer avec le compte user tout se fait depuis le menu de navigation.
+
 ## Mentions légales
 
 Ce projet est sous licence MIT.

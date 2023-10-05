@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Emprunteur;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;

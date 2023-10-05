@@ -5,9 +5,7 @@ namespace App\Controller;
 use App\Entity\Emprunt;
 use App\Entity\Livre;
 use App\Repository\LivreRepository;
-use App\Repository\EmpruntRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
