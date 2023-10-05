@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Votre compte</h1>
+
+    {{ include('profile/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_profile_index') }}">Vos emprunts</a>
+    
+{% endblock %}
