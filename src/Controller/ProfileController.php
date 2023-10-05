@@ -2,51 +2,48 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
 use App\Entity\Emprunt;
 use App\Entity\User;
 use App\Form\UserProfileType;
 use App\Form\UserPasswordType;
 use App\Repository\EmprunteurRepository;
 use App\Repository\EmpruntRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use function PHPUnit\Framework\containsOnly;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/profile')]
 class ProfileController extends AbstractController
 {
     #[Route('/', name: 'app_profile_index', methods: ['GET', 'POST'])]
-    public function index(EmpruntRepository $empruntRepository,EmprunteurRepository $emprunteurRepository): Response
-    {
-        $active = $this->getUser();
-        $emprunteur = $emprunteurRepository->find($active);
-        $emprunts = $emprunteur->getEmprunts();
+    public function index(EmpruntRepository $empruntRepository): Response
+    {               
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            // le session user n'est pas un admin
 
-        // if (!$this->isGranted('ROLE_ADMIN')) {
-        //     // le session user n'est pas un admin
-
-        //     /** @var \App\Entity\User $sessionUser */
-        //     $sessionUser = $this->getUser();
-        //     $student = $sessionUser->getStudent();
-        //     $schoolYear = $student->getSchoolYear();
-        //     $users = $userRepository->findBySchoolYear($schoolYear);
-        // }
+            /** @var \App\Entity\User $sessionUser */
+            $sessionUser = $this->getUser();
+            $emprunteur = $sessionUser->getEmprunteur();
+            $emprunts = $empruntRepository->findAllByEmpr($emprunteur);
+        } else {
+            $emprunts = $empruntRepository->findAll();
+        }
 
         return $this->render('profile/index.html.twig', [
-            'emprunts' => $empruntRepository->findAll(),
-            'activeEmprunts' => $emprunts,
+            'emprunts' => $emprunts,
         ]);
     }
 
     #[Route('/{id}', name: 'app_profile_emprunt', methods: ['GET'])]
     public function show(Emprunt $emprunt,User $user): Response
     {
+        /** @var \App\Entity\User $sessionUser */
+        $user = $this->getUser();
         $this->filterSessionUser($user);
 
         return $this->render('profile/show.html.twig', [
@@ -103,14 +100,4 @@ class ProfileController extends AbstractController
             throw new NotFoundHttpException("La page que vous recherchez n'existe pas.");
         }
     }
-
-    // private function filterSessionEmprunt(Emprunt $emprunt)
-    // {   
-    //     $sessionUser = $this->getUser();
-
-    //     if ($sessionUser != $user) {
-    //         // le user connecté essaie de consulter le profil d'un autre user
-    //         throw new AccessDeniedException();
-    //     }
-    // }
 }

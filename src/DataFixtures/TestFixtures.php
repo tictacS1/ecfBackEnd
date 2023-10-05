@@ -346,6 +346,9 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
         $emprunteurs = $repositoryEmprunteur->findAll();
         $livres = $repositoryLivre->findAll();
+        array_shift($livres);
+        array_shift($livres);
+        array_shift($livres);
 
         $emprunteur_1 = $repositoryEmprunteur->find(1);
         $emprunteur_2 = $repositoryEmprunteur->find(2);
@@ -392,7 +395,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $emprunt->setDateRetour($this->faker->optional($weight = 0.6, $default = null)->dateTimeBetween('-2 week', 'now'));
             $emprunteur_id = $this->faker->randomElement($emprunteurs);
             $emprunt->setEmprunteur($emprunteur_id);
-            $livre_id = $this->faker->randomElement($livres);
+            $livre_id = $this->faker->unique()->randomElement($livres);
             $emprunt->setLivre($livre_id);
 
             $this->manager->persist($emprunt);

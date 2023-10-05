@@ -32,7 +32,7 @@
 					<td colspan="4">no records found</td>
 				</tr>
 			{% else %}
-				{% for emprunt in activeEmprunts %}
+				{% for emprunt in emprunts %}
 					<tr>
 						<td>{{ emprunt.id }}</td>
 						<td>{{ emprunt.dateEmprunt ? emprunt.dateEmprunt|date('Y-m-d H:i:s') : '' }}</td>
