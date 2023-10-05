@@ -28,23 +28,28 @@
 					<td>{{ livre.aneeEdition }}</td>
 					<td>{{ livre.nombrePages }}</td>
 					<td>{{ livre.codeIsbn }}</td>
-					{# {% for emprunt in livre.emprunts %}
-						{% if emprunt.dateRetour == null %}
-							<td>Non disponible</td>
+					<td>
+						{% if livre.emprunts is empty %}
+							Disponible
 						{% else %}
-							<td>Disponible</td>
+							{% for emprunt in livre.emprunts %}
+								{% if emprunt.dateRetour %}
+									Disponible
+								{% else %}
+									Non Disponible
+								{% endif %}
+							{% endfor %}
 						{% endif %}
-					{% endfor %} #}
+					</td>
 					<td>
 						<a href="{{ path('app_home_show', {'id': livre.id}) }}">show</a>
 					</td>
 				</tr>
-			{% else %}
-				<tr>
-					<td colspan="6">no records found</td>
-				</tr>
-			{% endfor %}
+			</tbody>
 		</tbody>
-	</table>
-
-{% endblock %}
+	</tr>
+{% else %}
+	<tr>
+		<td colspan="6">no records found</td>
+	</tr>
+{% endfor %}</tbody></table>{% endblock %}
